@@ -35,19 +35,55 @@ public class SinglyLinkedList<E> implements IList<E> {
         return true;
     }
 
+    // returns first element of the list
     @Override
     public E get() {
-        return null;
+        if (this.head == null) {
+            return null;
+        }
+        return this.head.data;
     }
 
     @Override
     public E get(E e) {
-        return null;
+        if (this.head == null) {
+            return null;
+        }
+        return get(this.head, e);
+    }
+
+    private E get(Node<E> node, E e) {
+        if (node == null) {
+            return null;
+        }
+        if (node.data.equals(e)) {
+            return node.data;
+        }
+        return get(node.next, e);
     }
 
     @Override
     public boolean remove(E e) {
-        return false;
+        if (this.head != null && this.head.data.equals(e)) {
+            remove();
+            size--;
+            return true;
+        } else if (this.head == null) {
+            return false;
+        } else {
+            return remove(head, head.next, e);
+        }
+    }
+
+    private boolean remove(Node<E> previousNode, Node<E> currentNode, E e) {
+        if (currentNode == null) {
+            return false;
+        }
+        if (currentNode.data.equals(e)) {
+            previousNode.next = currentNode.next;
+            size--;
+            return true;
+        } else return remove(currentNode, currentNode.next, e);
     }
 
     // check if list is empty or not
@@ -64,27 +100,77 @@ public class SinglyLinkedList<E> implements IList<E> {
 
     @Override
     public void traverse() {
+        if (this.head != null && this.head.next != null) {
+            System.out.println(head.data.toString());
+            iterate(this.head.next);
+        }
+    }
 
+    private void iterate(Node<E> node) {
+        if (node != null) {
+            System.out.println(node.data.toString());
+            iterate(node.next);
+        }
+    }
+
+    // check if list contains object
+    @Override
+    public boolean contains(E e) {
+        if (this.head != null) {
+            return contains(this.head, e);
+        }
+        return false;
+    }
+
+    /**
+     * @param objectToBeAdded new object to be added in list
+     * @param existingObject  existing object in list before which new object is being inserted
+     * @return true if object is added to list
+     */
+    public boolean addBefore(E objectToBeAdded, E existingObject) {
+        if (this.head != null && this.head.data.equals(existingObject)) {
+            return add(objectToBeAdded);
+        } else {
+            if (this.head.next != null) {
+                return addBefore(objectToBeAdded, existingObject, this.head, this.head.next);
+            } else {
+                throw new NoSuchElementException("End of List reached");
+            }
+        }
+    }
+
+    private boolean addBefore(E objectToBeAdded, E existingObject, Node<E> previousNode, Node<E> currentNode) {
+        if (currentNode != null && currentNode.data.equals(existingObject)) {
+            Node<E> nodeToBeAdded = new Node<>(objectToBeAdded);
+            previousNode.next = nodeToBeAdded;
+            nodeToBeAdded.next = currentNode;
+            size++;
+            return true;
+        } else {
+            if (currentNode.next != null) {
+                return addBefore(objectToBeAdded, existingObject, currentNode, currentNode.next);
+            } else {
+                throw new NoSuchElementException("End of List reached");
+            }
+        }
+    }
+
+    private boolean contains(Node<E> node, E e) {
+        if (node.data.equals(e)) {
+            return true;
+        }
+        if (node.next == null) {
+            return false;
+        }
+        return contains(node.next, e);
     }
 
     private static class Node<E> {
-        private E data;
+        private final E data;
         private Node<E> next;
 
         private Node(E data) {
             this.data = data;
-        }
-
-        public Node<E> getNext() {
-            return next;
-        }
-
-        public void setNext(Node<E> next) {
-            this.next = next;
-        }
-
-        public E getData() {
-            return data;
         }
     }
 }

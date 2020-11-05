@@ -10,6 +10,8 @@ public interface IList<E> {
 
     E get(E e);
 
+    boolean contains(E e);
+
     boolean remove(E e);
 
     int size();

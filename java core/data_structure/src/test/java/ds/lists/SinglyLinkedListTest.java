@@ -150,4 +150,13 @@ class SinglyLinkedListTest {
 
         Assertions.assertThrows(NoSuchElementException.class, () -> studentList.addBefore(new Student("Inspector Morya", 42, "India"), new Student("Shabnam", 25, "India")), "End of List reached");
     }
+
+    @Test
+    void adding_integer_to_list() {
+        IList<Integer> integerIList = new SinglyLinkedList<>(0);
+        for (int i = 1; i < 100000; i++) {
+            integerIList.add(i);
+        }
+        Assertions.assertEquals(100000,integerIList.size());
+    }
 }

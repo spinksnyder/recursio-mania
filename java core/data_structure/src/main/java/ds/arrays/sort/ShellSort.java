@@ -1,7 +1,5 @@
 package ds.arrays.sort;
 
-import ds.Utils;
-
 /**
  * This algorithm is enhancement to insertion sort.
  * Here, sorting is done in two phases,
@@ -37,15 +35,4 @@ public class ShellSort {
         return array;
     }
 
-    public static void main(String[] args) {
-        int[] array = new int[]{-20, -80, 100, 320, 45, 1, -4, -9, 10, 56, 1000, -100, 89, -99};
-        ShellSort shellSort = new ShellSort(array);
-        int[] sortedArray = shellSort.sort();
-        Utils.printArrayElements(sortedArray);
-
-        array = new int[]{20, 35, -15, 7, 55, 1, -22};
-        shellSort = new ShellSort(array);
-        sortedArray = shellSort.sort();
-        Utils.printArrayElements(sortedArray);
-    }
 }

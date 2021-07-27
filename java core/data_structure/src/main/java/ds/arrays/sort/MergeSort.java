@@ -47,13 +47,4 @@ public class MergeSort {
         System.arraycopy(array, i, array, start + tempIndex, mid - i);
         System.arraycopy(tempArray, 0, array, start, tempIndex);
     }
-
-    public static void main(String[] args) {
-        int[] newArray = new int[]{-20, -80, 100, 320, 45, 1, -4, -9, 10, 56, 1000, -100, 89, -99};
-        MergeSort mergeSort = new MergeSort(newArray);
-        int[] sort = mergeSort.sort();
-        for (int i : sort) {
-            System.out.println(i);
-        }
-    }
 }

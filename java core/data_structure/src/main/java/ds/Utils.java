@@ -2,7 +2,9 @@ package ds;
 
 public class Utils {
 
-    private Utils() {}
+    private Utils() {
+        // private constructor
+    }
 
     public static void printArrayElements(int[] array) {
         System.out.print("{");
